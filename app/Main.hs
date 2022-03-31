@@ -163,9 +163,9 @@ guessWord wordToGuess numberOfAttempts = do
         else    
             return True
 
-showFinalMessage :: Bool -> String -> String
-showFinalMessage True _ = "You have won!"
-showFinalMessage False word = "You have lost, the word was: " ++ word
+showFinalMessage :: Bool -> String -> T.Text
+showFinalMessage True _ = T.pack "You have won!"
+showFinalMessage False word = T.pack $ "You have lost, the word was: " ++ word
 
 main :: IO ()
 main = do
@@ -175,4 +175,4 @@ main = do
     let wordToGuess = words !! randomNumber
     putStrLn $ "Guess the word with " ++ show (length wordToGuess) ++ " letters:"
     result <- guessWord (WordToGuess wordToGuess) numberOfAttempts
-    putStrLn $ show (showFinalMessage result wordToGuess)
+    putStrLn $ show (T.unpack (showFinalMessage result wordToGuess))
